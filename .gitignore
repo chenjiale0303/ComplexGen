@@ -38,3 +38,8 @@
 GeometricRefine/build/
 GeometricRefine/Bin/
 GeometricRefine/Lib/
+
+**/__pycache__
+chamferdist/build
+chamferdist/chamferdist.egg-info
+chamferdist/dist
