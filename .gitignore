@@ -31,9 +31,9 @@
 *.out
 *.app
 
-# Data
-*.pkl
-*.pkl
+# # Data
+# *.pkl
+# *.pkl
 
 GeometricRefine/build/
 GeometricRefine/Bin/
