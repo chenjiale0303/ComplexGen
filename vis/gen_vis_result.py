@@ -246,7 +246,7 @@ def load_yaml_json_file(fn):
     return pred_data
 
 def complexjson_to_obj(fn):
-    tmp_pth = r'sphere_94.obj'
+    tmp_pth = r'/root/code/ComplexGen/vis/sphere_94.obj'
     tmp_mesh = load_obj_simple(tmp_pth)
     tmp_mesh.vertices = tmp_mesh.vertices / 0.7
     suffix = ''

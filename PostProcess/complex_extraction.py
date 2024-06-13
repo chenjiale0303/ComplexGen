@@ -31,8 +31,8 @@ parser.add_argument('--th_valid', default=0.3, type=float)
 parser.add_argument('--folder', type=str, required = True)
 args = parser.parse_args()
 
-flag_parallel = False
-num_parallel = 20
+flag_parallel = True
+num_parallel = 4
 
 dtype = 'float64'
 th_quad_error = 0.1
@@ -2403,6 +2403,20 @@ def process_one_file(filename):
     return
   export_visualization_file(fn_prefix+"_extraction.complex", data)
 
+def check_one(f):
+	file_to_check = f.replace('_prediction.pkl', '_extraction.complex')
+	
+	directory_path = r"./experiments/default/test_obj"
+	
+	file_path = os.path.join(directory_path, file_to_check)
+
+	if os.path.isfile(file_path):
+		print(f"file '{file_to_check}' exist '{directory_path}'")
+		return True
+	else:
+		print(f"file '{file_to_check}' not exist '{directory_path}' ")
+		return False
+
 
 def process_all():
   folder_name = args.folder
@@ -2410,7 +2424,7 @@ def process_all():
   # flag_process = 0
   tasks = []
   for f in allfs:
-    if f.endswith('.pkl'):
+    if f.endswith('.pkl') and not check_one(f):
       if args.skip and os.path.exists(os.path.join(folder_name, f.replace('_prediction.pkl', '_extraction.complex'))):
         continue
       filename = os.path.join(folder_name, f)
@@ -2423,6 +2437,8 @@ def process_all():
     return
 
   print('#tasks: ', len(tasks))
+  if (len(tasks) == 0):
+    return 
   #batch processing
   with Pool(num_parallel) as p:
     p.map(process_one_file, tasks)

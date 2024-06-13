@@ -22,10 +22,10 @@ using allquadrics::data_pnw;
 
 FILE _iob[] = { *stdin, *stdout, *stderr };
 
-extern"C" FILE * __cdecl __iob_func(void)
-{
-	return _iob;
-}
+//extern"C" FILE * __cdecl __iob_func(void)
+//{
+//	return _iob;
+//}
 
 const char* quadricTypeNames[] = { "general", "rotationally symmetric", "plane", "sphere",
 	"general cylinder", "circular cylinder", "general cone", "circular cone",

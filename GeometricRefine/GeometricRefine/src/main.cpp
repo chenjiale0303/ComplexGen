@@ -249,7 +249,7 @@ int main(int argc, char** argv)
 {
 	bool flag_direct_fit_cylinder_cone = false; // not using nurbs, direct fit cylinder and cone
 	bool flag_input_pc_normal = true;
-	bool save_curve_corner = false;
+	bool save_curve_corner = true;
 	int u_split = 20, v_split = 20;
 	int t_split = 34;
 	bool flag_patch_self_proj = true;
@@ -466,8 +466,8 @@ int main(int argc, char** argv)
 			w_pc_patch = result["pointonpatch"].as<int>();
 		}
 
-		auto& inputfile = result["i"].as<std::string>();
-		auto& inputprefix = inputfile.substr(0, inputfile.find_last_of("."));
+		std::string inputfile = result["i"].as<std::string>();
+		std::string inputprefix = inputfile.substr(0, inputfile.find_last_of("."));
 
 		std::vector<vec3d> corners;
 		std::vector<std::vector<vec3d>> curves, patches, patch_normals;

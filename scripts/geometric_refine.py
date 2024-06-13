@@ -2,9 +2,9 @@ import os
 from multiprocessing import Pool
 
 
-exe_path = r'.\GeometricRefine\Bin\GeometricRefine.exe'
-pc_ply_path = r'.\data\default\test_point_clouds'
-complex_path = r'.\experiments\default\test_obj'
+exe_path = './GeometricRefine/Bin/GeometricRefine'
+pc_ply_path = './data/default/test_point_clouds'
+complex_path = './experiments/default/test_obj'
 
 suffix = '_extraction.complex'
 
@@ -29,16 +29,17 @@ def process_one(f):
 def main_batch():
 	allfs = os.listdir(complex_path)
 	allcomplex = []
-	flag_parallel = False
+	flag_parallel = True
 	for f in allfs:
-		if f.endswith(suffix):
+		if f.endswith(suffix) and not os.path.exists(os.path.join(complex_path, f.replace(suffix, "_geom_refine.json"))):
 			allcomplex.append(f)
 	
+
 	if not flag_parallel:
 		for f in allcomplex:
 			process_one(f)		
 		return
-	with Pool(90) as p:
+	with Pool(12) as p:
 		p.map(process_one, allcomplex)
 
 if __name__ == "__main__":

@@ -43,3 +43,11 @@ GeometricRefine/Lib/
 chamferdist/build
 chamferdist/chamferdist.egg-info
 chamferdist/dist
+
+# NVD baselines
+.vscode
+nvd_test.pkl
+**bak**
+experiments
+gurobi_wrapper.cpython-37.pyc
+data/default/test/packed/packed_000000.pkl

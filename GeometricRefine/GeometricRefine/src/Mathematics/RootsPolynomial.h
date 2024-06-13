@@ -403,8 +403,8 @@ namespace gte
                 // Three simple roots.
                 Rational deltaDiv108 = delta / rat108;
                 Rational betaRe = -c0 / rat2;
-                Rational betaIm = std::sqrt(deltaDiv108);
-                Rational theta = std::atan2(betaIm, betaRe);
+                Rational betaIm = std::sqrt((double)(deltaDiv108));
+                Rational theta = std::atan2((double)(betaIm), (double)(betaRe));
                 Rational thetaDiv3 = theta / rat3;
                 double angle = (double)thetaDiv3;
                 Rational cs = (Rational)std::cos(angle);

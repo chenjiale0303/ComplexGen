@@ -22,7 +22,7 @@ FILE(GLOB_RECURSE project_cpps src/HOptimizer/*.cpp src/CurveFitter.cpp src/Surf
 INCLUDE_DIRECTORIES(src src/HOptimizer ${CMAKE_SOURCE_DIR}/yaml-cpp ${CMAKE_SOURCE_DIR}/yaml-cpp/include)
 
 set(CMAKE_DEBUG_POSTFIX "d")
-add_definitions(/bigobj)
+# add_definitions(/bigobj)
 add_executable(GeometricRefine ${project_cpps})
 target_link_libraries(GeometricRefine PUBLIC debug allquadricsdirectd debug yaml-cppd optimized allquadricsdirect optimized yaml-cpp legacy_stdio_definitions)
 target_link_libraries(GeometricRefine PUBLIC debug libf2cd debug clapackd debug BLASd optimized libf2c optimized clapack optimized BLAS)
