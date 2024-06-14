@@ -85,9 +85,7 @@ def generate_all(ids):
 
 if __name__ == '__main__':
     ids = [file.strip() for file in open(r"test_ids.txt").readlines()]
-    # generate_all(ids)
-    # complex_extraction()
-    # geometric_refine()
-
-    
-    visualization(ids)
+    generate_all(ids)
+    complex_extraction()
+    geometric_refine()
+    # visualization(ids)
