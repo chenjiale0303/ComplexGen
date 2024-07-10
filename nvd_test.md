@@ -51,4 +51,4 @@ Similar to the above, just modify `test_ids.txt`, which contains only one model 
 
 Since the author did not open source the Trim code, the non-trim version is used for evaluation. If you want to get the trim code, please contact the author yourself.
 
-After you get the code, you should replace the suffix `_geom_refine.json` with `_extraction_final.json`, `_geom_refine.obj` with `_extraction_final.obj`
+After you get the code, you should replace the suffix `_geom_refine.json` with `_extraction_final.json`, `_geom_refine.obj` with `_extraction_final.obj` in test.py

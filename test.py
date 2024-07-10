@@ -76,6 +76,7 @@ def generate_all(ids):
             data.append(item)
             pickle.dump(item, f)
 
+    os.makedirs('data/default/test/packed', exist_ok=True)
     shutil.copy2("nvd_test.pkl", 'data/default/test/packed/packed_000000.pkl')
 
     os.system('python Minkowski_backbone.py --experiment_name default --enable_automatic_restore --no_pe --hn_scale --input_normal_signals --patch_grid --ourresnet --eval --no_output --parsenet --patch_close --patch_emd --patch_uv --gpu 0')
