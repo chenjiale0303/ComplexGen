@@ -10,11 +10,11 @@ from tqdm import tqdm
 from multiprocessing import Pool
 from plyfile import PlyData, PlyElement
 import trimesh
+from pathlib import Path
 
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--gt_dir', type=str, default='/data/GSP_test/test_data_whole3', help='path to gt data')
 parser.add_argument('--output_dir', type=str, default='/data/GSP_test/baselines/ComplexGen_prediction_0415',
                     help='path to output sample and scale results')
 parser.add_argument('--complexgen_output_dir', type=str, default='/root/code/ComplexGen/experiments/default/test_obj',
@@ -25,7 +25,7 @@ parser.add_argument('--viz_output_dir', type=str, default='', help='path to outp
 parser.add_argument('--prefix', type=str, default='', help='just output one model')
 args = parser.parse_args()
 
-gt_dir = args.gt_dir
+pose_dir = Path("data/default/pose")
 output_dir = args.output_dir
 viz_output_dir = args.viz_output_dir
 complexgen_output_dir = args.complexgen_output_dir
@@ -71,9 +71,12 @@ def process_id(id):
     with open(json_file, 'r') as f:
         data = json.load(f)
 
-    gt_points = o3d.io.read_point_cloud(r'{}/poisson/{}.ply'.format(gt_dir, id))
-    gt_points = np.asarray(gt_points.points)
-    center, scale = complexgen_normalize_model(gt_points, to_unit_sphere=False)
+    pose = open(pose_dir/f"{id}.txt").readlines()[0].split(" ")
+    center = np.array(pose[:3]).astype(np.float32)
+    scale = float(pose[3])
+    # gt_points = o3d.io.read_point_cloud(r'{}/poisson/{}.ply'.format(gt_dir, id))
+    # gt_points = np.asarray(gt_points.points)
+    # center, scale = complexgen_normalize_model(gt_points, to_unit_sphere=False)
 
     if args.topology:
         fe_adj_table = []
@@ -232,9 +235,9 @@ def my_obj_loader(file_path):
 def scale_geom_refine_and_cut_grouped(id):
     if not os.path.exists(r"{}/{}_geom_refine.obj".format(complexgen_output_dir, id)):
         return
-    gt_points = o3d.io.read_point_cloud(r"{}/poisson/{}.ply".format(gt_dir, id))
-    gt_points = np.asarray(gt_points.points)
-    center, scale = complexgen_normalize_model(gt_points, to_unit_sphere=False)
+    pose = open(pose_dir/f"{id}.txt").readlines()[0].split(" ")
+    center = np.array(pose[:3]).astype(np.float32)
+    scale = float(pose[3])
 
     ms = pymeshlab.MeshSet()
     # Uncomment the following codes if you have trim version
@@ -307,5 +310,6 @@ if __name__ == "__main__":
 
     with Pool(multiprocessing.cpu_count()) as executor:
         executor.map(scale_geom_refine_and_cut_grouped, ids)
+
 
 
